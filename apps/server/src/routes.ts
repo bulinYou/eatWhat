@@ -57,6 +57,7 @@ router.post('/records', async (req: Request, res: Response) => {
       protein: Number(protein) || 0,
       carbs: Number(carbs) || 0,
       fat: Number(fat) || 0,
+      grams: 0,
       notes,
     })
     

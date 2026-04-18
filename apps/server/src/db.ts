@@ -142,6 +142,7 @@ function mapRecord(record: typeof dietRecords.$inferSelect): DietRecord {
     protein: Number(record.protein),
     carbs: Number(record.carbs),
     fat: Number(record.fat),
+    grams: Number(record.grams),
     notes: record.notes || undefined,
     createdAt: record.createdAt.toISOString(),
     updatedAt: record.updatedAt.toISOString(),

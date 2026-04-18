@@ -11,7 +11,7 @@ async function check() {
   
   const db = drizzle(pool)
   
-  const result = await db.execute('SELECT id, date, food_name FROM diet_records ORDER BY created_at DESC LIMIT 10')
+  const result = await pool.query('SELECT id, "date", food_name FROM diet_records ORDER BY created_at DESC LIMIT 10')
   
   console.log('Total rows:', result.rows.length)
   result.rows.forEach((row: any) => {
