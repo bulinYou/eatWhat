@@ -50,6 +50,9 @@ COPY --from=builder /app/apps/server/src/schema.ts ./apps/server/src/schema.ts
 # Install production dependencies only
 RUN cd apps/server && pnpm install --prod --frozen-lockfile
 
+# Install drizzle-kit for migrations
+RUN cd apps/server && pnpm add drizzle-kit
+
 WORKDIR /app/apps/server
 
 EXPOSE 3000
