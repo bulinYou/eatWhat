@@ -8,7 +8,7 @@ import {
   deleteRecord,
   getUserGoals,
   updateUserGoals,
-} from './db'
+} from './db.js'
 import { MealType } from '@diet-tracker/types'
 import { calculateDailySummary } from '@diet-tracker/utils'
 

@@ -1,7 +1,7 @@
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { Pool } from 'pg'
 import { eq, and, gte, lte } from 'drizzle-orm'
-import { dietRecords, userGoals } from './schema'
+import { dietRecords, userGoals } from './schema.js'
 import { DietRecord, UserGoals } from '@diet-tracker/types'
 import { generateId } from '@diet-tracker/utils'
 import dotenv from 'dotenv'

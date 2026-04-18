@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import routes from './routes'
-import { initializeDatabase } from './db'
+import routes from './routes.js'
+import { initializeDatabase } from './db.js'
 
 dotenv.config()
 
