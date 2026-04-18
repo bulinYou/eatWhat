@@ -49,13 +49,13 @@ echo ""
 echo "[5/7] 准备项目代码..."
 DEPLOY_DIR="/opt/diet-tracker"
 
-if [ -d "$DEPLOY_DIR" ]; then
+if [ -d "$DEPLOY_DIR/.git" ]; then
   echo "项目目录已存在，更新代码..."
   cd "$DEPLOY_DIR"
-  git pull
+  git pull origin main
 else
   echo "克隆项目代码..."
-  git clone <你的Git仓库地址> "$DEPLOY_DIR"
+  git clone https://github.com/bulinYou/eatWhat.git "$DEPLOY_DIR"
   cd "$DEPLOY_DIR"
 fi
 

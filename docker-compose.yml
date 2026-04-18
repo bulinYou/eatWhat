@@ -9,15 +9,52 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: diet_tracker
-      POSTGRES_USER: diet_user
-      POSTGRES_PASSWORD: diet_password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: diet_tracker_db_password
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U diet_user -d diet_tracker"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d diet_tracker"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - diet-tracker-network
+
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    container_name: diet-tracker-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://postgres:diet_tracker_db_password@postgres:5432/diet_tracker
+      PORT: 3000
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - diet-tracker-network
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: diet-tracker-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    networks:
+      - diet-tracker-network
 
 volumes:
   postgres_data:
+
+networks:
+  diet-tracker-network:
+    driver: bridge
