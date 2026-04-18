@@ -15,6 +15,13 @@ COPY apps/server/ apps/server/
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
+# Build shared packages first
+WORKDIR /app/packages/types
+RUN pnpm build
+
+WORKDIR /app/packages/utils
+RUN pnpm build
+
 # Build the server
 WORKDIR /app/apps/server
 RUN pnpm build

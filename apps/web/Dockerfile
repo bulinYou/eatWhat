@@ -15,6 +15,13 @@ COPY apps/web/ apps/web/
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
+# Build shared packages first
+WORKDIR /app/packages/types
+RUN pnpm build
+
+WORKDIR /app/packages/utils
+RUN pnpm build
+
 # Build the web app
 WORKDIR /app/apps/web
 RUN pnpm build
