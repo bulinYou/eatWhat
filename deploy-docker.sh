@@ -24,10 +24,19 @@ if ! command -v docker &> /dev/null; then
 fi
 
 # 检查Docker Compose是否已安装
-if ! command -v docker-compose &> /dev/null; then
+if ! docker compose version &> /dev/null; then
   echo "Docker Compose未安装，正在安装..."
-  curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  chmod +x /usr/local/bin/docker-compose
+  DOCKER_CONFIG=/usr/local/lib/docker/cli-plugins
+  mkdir -p $DOCKER_CONFIG
+  curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m)" -o $DOCKER_CONFIG/docker-compose
+  chmod +x $DOCKER_CONFIG/docker-compose
+fi
+
+# 设置compose命令变量
+if docker compose version &> /dev/null; then
+  COMPOSE_CMD="docker compose"
+else
+  COMPOSE_CMD="docker-compose"
 fi
 
 # 准备项目代码
@@ -49,12 +58,12 @@ fi
 echo ""
 echo "[2/3] 构建Docker镜像..."
 cd "$DEPLOY_DIR"
-docker-compose down || true
-docker-compose build --no-cache
+$COMPOSE_CMD down || true
+$COMPOSE_CMD build --no-cache
 
 echo ""
 echo "[3/3] 启动服务..."
-docker-compose up -d
+$COMPOSE_CMD up -d
 
 # 等待数据库启动
 echo ""
@@ -64,7 +73,7 @@ sleep 10
 # 执行数据库迁移
 echo ""
 echo "执行数据库迁移..."
-docker-compose exec -T server sh -c "cd /app && pnpm db:push" || echo "数据库迁移完成或已存在"
+$COMPOSE_CMD exec -T server sh -c "cd /app && pnpm db:push" || echo "数据库迁移完成或已存在"
 
 echo ""
 echo "========================================="
@@ -76,10 +85,10 @@ echo "  Web 前端: http://你的服务器IP"
 echo "  后端 API: http://你的服务器IP/api"
 echo ""
 echo "服务管理命令："
-echo "  查看服务状态: docker-compose ps"
-echo "  查看日志: docker-compose logs -f"
-echo "  重启服务: docker-compose restart"
-echo "  停止服务: docker-compose down"
+echo "  查看服务状态: $COMPOSE_CMD ps"
+echo "  查看日志: $COMPOSE_CMD logs -f"
+echo "  重启服务: $COMPOSE_CMD restart"
+echo "  停止服务: $COMPOSE_CMD down"
 echo ""
 echo "Docker容器："
 echo "  数据库: diet-tracker-db"
