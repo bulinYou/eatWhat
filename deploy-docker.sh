@@ -73,7 +73,7 @@ sleep 10
 # 执行数据库迁移
 echo ""
 echo "执行数据库迁移..."
-$COMPOSE_CMD exec -T server sh -c "cd /app && pnpm db:push" || echo "数据库迁移完成或已存在"
+$COMPOSE_CMD run --rm server sh -c "cd /app/apps/server && npx drizzle-kit push" || echo "数据库迁移完成或已存在"
 
 echo ""
 echo "========================================="
