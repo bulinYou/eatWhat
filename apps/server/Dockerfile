@@ -44,6 +44,8 @@ COPY --from=builder /app/packages/utils/package.json ./packages/utils/package.js
 COPY --from=builder /app/packages/utils/dist ./packages/utils/dist
 COPY --from=builder /app/apps/server/package.json ./apps/server/package.json
 COPY --from=builder /app/apps/server/dist ./apps/server/dist
+COPY --from=builder /app/apps/server/drizzle.config.ts ./apps/server/drizzle.config.ts
+COPY --from=builder /app/apps/server/src/schema.ts ./apps/server/src/schema.ts
 
 # Install production dependencies only
 RUN cd apps/server && pnpm install --prod --frozen-lockfile
