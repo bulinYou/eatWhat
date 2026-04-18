@@ -1,0 +1,135 @@
+<!--history.wxml-->
+<view class="history-container">
+  <!-- 头部导航 -->
+  <view class="header">
+    <view class="header-left">
+      <view class="back-btn" bindtap="goBack">
+        <text class="iconfont">arrow_back</text>
+      </view>
+      <text class="page-title">历史记录</text>
+    </view>
+    <view class="header-right">
+      <view class="calendar-btn">
+        <text class="iconfont">calendar_month</text>
+      </view>
+      <view class="user-profile">
+        <image src="{{avatarUrl}}" mode="aspectFill" class="profile-img" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 主内容区 -->
+  <view class="main-content">
+    <!-- 日历组件 -->
+    <view class="calendar-container">
+      <view class="calendar-header">
+        <text class="month-title">2024年10月</text>
+        <view class="month-nav">
+          <view class="nav-btn">
+            <text class="iconfont nav-icon">chevron_left</text>
+          </view>
+          <view class="nav-btn">
+            <text class="iconfont nav-icon">chevron_right</text>
+          </view>
+        </view>
+      </view>
+      <view class="calendar-grid">
+        <view class="weekday" wx:for="{{weekdays}}" wx:key="*this">{{item}}</view>
+        <view
+          wx:for="{{calendarDays}}"
+          wx:key="index"
+          class="calendar-day {{item.otherMonth ? 'other-month' : ''}} {{item.selected ? 'selected' : ''}} {{item.hasRecord ? 'has-record' : ''}}"
+          bindtap="selectDay"
+          data-day="{{item.day}}"
+          data-other-month="{{item.otherMonth}}"
+        >
+          <text>{{item.day}}</text>
+          <view wx:if="{{item.hasRecord && !item.selected}}" class="record-dot" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 搜索框 -->
+    <view class="search-area">
+      <text class="iconfont search-icon">search</text>
+      <input class="search-input" placeholder="搜索过往记录..." placeholder-class="search-placeholder" />
+    </view>
+
+    <!-- 历史详情 -->
+    <view class="timeline-section">
+      <view class="section-header">
+        <text class="section-title">历史详情</text>
+        <text class="date-range">2024年10月{{selectedDay}}日</text>
+      </view>
+
+      <!-- 选定日期数据卡片 -->
+      <view class="log-card elevated">
+        <view class="log-card-header">
+          <view class="day-info">
+            <text class="day-label">选定日期</text>
+            <text class="day-date">10月{{selectedDay}}日</text>
+          </view>
+          <view class="calories-data">
+            <text class="calories-value primary-color">1,840</text>
+            <text class="calories-unit">千卡摄入</text>
+          </view>
+        </view>
+        <view class="log-card-footer">
+          <view class="tag-icons">
+            <view class="tag-icon primary-tag">
+              <text class="tag-icon-text">egg</text>
+            </view>
+            <view class="tag-icon secondary-tag">
+              <text class="tag-icon-text">restaurant</text>
+            </view>
+            <view class="tag-icon tertiary-tag">
+              <text class="tag-icon-text">local_drink</text>
+            </view>
+          </view>
+          <text class="tag-description">高蛋白 • 富含膳食纤维</text>
+        </view>
+      </view>
+
+      <!-- 饮食记录卡片 -->
+      <view class="log-card-row">
+        <view class="food-photo-thumb">
+          <image src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkZ7hBe6Vn8i5gzlI0o9oDrxH6k85Qrs-XdMHotjF_ASgUyj2PgcgK4U_Mw-Q3gsDuhOL-qMBJd86Q09e5KA3alOPzMqqxbYqwHso_FXqFJQLp3Kz8tXO3B7wtcYyDysT615RKpoz3olv7UJAzPPIDBDzRsQ6cSt24rfF50SItbMZ-vR7Jk1FVeiUex5Waq9sGuCIhALFDTF8gwW1D6Ylt9MHj3sAE3_YxZHRxJxWkb_QReL4e3CJJbcyNd9j4s4bOvb6C5IrD2WOC" mode="aspectFill" class="food-img" />
+        </view>
+        <view class="log-card-content">
+          <text class="meal-label">早餐饮食</text>
+          <text class="meal-name">全麦面包 & 鳄梨</text>
+          <view class="cal-row">
+            <text class="cal-value">420</text>
+            <text class="cal-unit">千卡</text>
+          </view>
+        </view>
+        <text class="iconfont chevron-icon">chevron_right</text>
+      </view>
+    </view>
+
+    <!-- 统计数据 -->
+    <view class="stats-grid">
+      <view class="stats-card full-width">
+        <text class="stats-label">月度平均</text>
+        <view class="stats-value-group">
+          <text class="stats-value">1,895</text>
+          <text class="stats-unit">千卡 / 天</text>
+        </view>
+      </view>
+      <view class="stats-card square">
+        <text class="stats-icon secondary-icon">trending_up</text>
+        <view class="stats-info">
+          <text class="stats-label">打卡坚持率</text>
+          <text class="stats-value small">88%</text>
+        </view>
+      </view>
+      <view class="stats-card square">
+        <text class="stats-icon primary-icon">check_circle</text>
+        <view class="stats-info">
+          <text class="stats-label">目标达成</text>
+          <text class="stats-value small">22 天</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

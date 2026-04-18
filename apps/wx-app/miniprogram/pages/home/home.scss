@@ -1,0 +1,571 @@
+/**home.scss**/
+.home-container {
+  min-height: 100vh;
+  background-color: var(--background);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 头部导航 */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 40rpx;
+}
+
+.avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 4rpx solid var(--primary-container);
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.025em;
+}
+
+.history-btn {
+  padding: 12rpx;
+  border-radius: var(--radius-full);
+}
+
+.history-btn:active {
+  background-color: var(--surface-container-low);
+}
+
+.iconfont {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 48rpx;
+  color: var(--primary);
+}
+
+/* 主内容区 */
+.main-content {
+  max-width: 100%;
+  padding: 16rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+  padding-bottom: 200rpx;
+}
+
+/* 今日热量卡片 */
+.calorie-card {
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--radius-default);
+  padding: 40rpx;
+  box-shadow: 0 16rpx 48rpx rgba(25, 28, 27, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.calorie-content {
+  position: relative;
+  z-index: 10;
+}
+
+.calorie-label {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.calorie-value-row {
+  margin-top: 8rpx;
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+
+.calorie-value {
+  font-size: 120rpx;
+  font-weight: 800;
+  color: var(--on-surface);
+  letter-spacing: -0.025em;
+}
+
+.calorie-total {
+  font-size: 36rpx;
+  color: var(--on-surface-variant);
+  font-weight: 500;
+}
+
+.progress-bar {
+  margin-top: 40rpx;
+  height: 24rpx;
+  width: 100%;
+  background-color: var(--surface-container-high);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--primary-container));
+  border-radius: var(--radius-full);
+  transition: width 0.5s;
+}
+
+.macros-row {
+  margin-top: 32rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.macro-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.macro-item.divider {
+  border-left: 2rpx solid rgba(114, 121, 105, 0.1);
+  border-right: 2rpx solid rgba(114, 121, 105, 0.1);
+  padding: 0 48rpx;
+}
+
+.macro-label {
+  font-size: 22rpx;
+  color: var(--on-surface-variant);
+  font-weight: 700;
+}
+
+.macro-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.calorie-bg {
+  position: absolute;
+  top: -64rpx;
+  right: -64rpx;
+  width: 320rpx;
+  height: 320rpx;
+  background-color: rgba(57, 106, 5, 0.04);
+  border-radius: 50%;
+  filter: blur(80rpx);
+}
+
+/* 快捷添加按钮 */
+.quick-add-scroll {
+  white-space: nowrap;
+}
+
+.quick-add-row {
+  display: flex;
+  gap: 16rpx;
+  padding-bottom: 8rpx;
+}
+
+.quick-add-btn {
+  background-color: var(--primary-fixed);
+  color: var(--on-primary-fixed);
+  border: none;
+  padding: 12rpx 32rpx;
+  border-radius: var(--radius-full);
+  font-size: 26rpx;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.quick-add-btn:active {
+  transform: scale(0.95);
+}
+
+/* 今日饮食日志 */
+.log-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.log-title {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: var(--on-surface);
+  margin-bottom: 32rpx;
+  letter-spacing: -0.025em;
+}
+
+.waterfall-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+}
+
+.food-item {
+  width: calc(50% - 12rpx);
+  margin-bottom: 24rpx;
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--radius-default);
+  overflow: hidden;
+  border: 2rpx solid rgba(194, 201, 182, 0.1);
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.04);
+}
+
+.food-item.image-type {
+  position: relative;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.food-image {
+  width: 100%;
+  height: auto;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
+}
+
+.image-info {
+  position: absolute;
+  bottom: 24rpx;
+  left: 24rpx;
+  right: 24rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.image-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.food-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--on-surface);
+  line-height: 1.2;
+}
+
+.food-calories {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.food-grams {
+  font-size: 22rpx;
+  color: var(--on-surface-variant);
+  font-weight: 500;
+}
+
+/* 简单类型 */
+.simple-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 28rpx 28rpx 0;
+}
+
+.icon-circle {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breakfast-icon {
+  background-color: var(--secondary-container);
+}
+
+.other-icon {
+  background-color: var(--primary-fixed);
+}
+
+.icon-text {
+  font-size: 40rpx;
+}
+
+.food-time {
+  font-size: 24rpx;
+  color: var(--on-surface-variant);
+  font-weight: 700;
+}
+
+.simple-info {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+  border-radius: 16rpx;
+  padding: 16rpx;
+  margin: 0 28rpx 28rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 底部输入导航 */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: rgba(248, 250, 248, 0.85);
+  backdrop-filter: blur(40rpx);
+  padding: 24rpx 40rpx;
+  padding-bottom: calc(24rpx + env(safe-area-inset-bottom, 48rpx));
+  border-top: 2rpx solid rgba(194, 201, 182, 0.15);
+  box-shadow: 0 -16rpx 60rpx rgba(25, 28, 27, 0.06);
+}
+
+.input-container {
+  background-color: var(--surface-container-high);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  padding: 8rpx;
+  gap: 8rpx;
+}
+
+.input-field {
+  background-color: transparent;
+  border: none;
+  flex: 1;
+  padding: 0 20rpx;
+  font-size: 30rpx;
+  color: var(--on-surface);
+  font-weight: 500;
+}
+
+.input-placeholder {
+  color: rgba(66, 73, 58, 0.5);
+}
+
+.submit-btn {
+  padding: 0 24rpx;
+  height: 72rpx;
+  border-radius: var(--radius-full);
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 10rpx rgba(57, 106, 5, 0.25);
+}
+
+.submit-text {
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.voice-btn {
+  flex: 1;
+  height: 72rpx;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, var(--primary), var(--primary-container));
+  transition: all 0.3s;
+}
+
+.voice-btn.recording {
+  background-color: var(--error);
+}
+
+.voice-icon {
+  color: #ffffff;
+  font-size: 40rpx;
+}
+
+.voice-text {
+  margin-left: 8rpx;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.keyboard-switch-btn {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-container-lowest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.keyboard-icon {
+  color: var(--on-surface-variant);
+  font-size: 40rpx;
+}
+
+/* 设置面板 */
+.settings-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.settings-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 250;
+  height: 100vh;
+  width: 70%;
+  background-color: var(--surface-container-lowest);
+  box-shadow: 8rpx 0 48rpx rgba(0, 0, 0, 0.12);
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-out;
+}
+
+.settings-panel.open {
+  transform: translateX(0);
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 40rpx;
+  border-bottom: 2rpx solid rgba(194, 201, 182, 0.15);
+}
+
+.settings-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.settings-close {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-close:active {
+  background-color: var(--surface-container);
+}
+
+.close-icon {
+  color: var(--on-surface);
+  font-size: 40rpx;
+}
+
+.settings-content {
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding-bottom: 32rpx;
+  border-bottom: 2rpx solid rgba(194, 201, 182, 0.15);
+}
+
+.user-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 4rpx solid var(--primary-container);
+}
+
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.user-desc {
+  font-size: 26rpx;
+  color: var(--on-surface-variant);
+}
+
+.body-info {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 32rpx;
+  border-bottom: 2rpx solid rgba(194, 201, 182, 0.15);
+}
+
+.body-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.body-item.divider {
+  border-left: 2rpx solid rgba(114, 121, 105, 0.08);
+  border-right: 2rpx solid rgba(114, 121, 105, 0.08);
+  padding: 0 64rpx;
+}
+
+.body-label {
+  font-size: 21rpx;
+  color: rgba(114, 121, 105, 0.5);
+  font-weight: 500;
+}
+
+.body-value {
+  font-size: 26rpx;
+  color: rgba(114, 121, 105, 0.6);
+  font-weight: 500;
+}
+
+.settings-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.menu-item {
+  width: 100%;
+  text-align: left;
+  padding: 24rpx 32rpx;
+  border-radius: 16rpx;
+}
+
+.menu-item:active {
+  background-color: var(--surface-container);
+}
+
+.menu-text {
+  font-size: 30rpx;
+  color: var(--on-surface);
+  font-weight: 500;
+}

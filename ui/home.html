@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html lang="zh"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>健康食志 - 日志</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --background: #f8faf8;
+            --surface: #f8faf8;
+            --surface-container-lowest: #ffffff;
+            --surface-container-low: #f2f4f2;
+            --surface-container: #eceeec;
+            --surface-container-high: #e6e9e7;
+            --surface-container-highest: #e1e3e1;
+            --primary: #396a05;
+            --primary-container: #88c057;
+            --primary-fixed: #b8f484;
+            --on-primary: #ffffff;
+            --on-primary-container: #264c00;
+            --on-primary-fixed: #0d2000;
+            --secondary: #8f4e00;
+            --secondary-container: #fc9d41;
+            --on-secondary: #ffffff;
+            --on-surface: #191c1b;
+            --on-surface-variant: #42493a;
+            --outline-variant: #c2c9b6;
+            --error: #ba1a1a;
+            --radius-default: 0.75rem;
+            --radius-lg: 1.5rem;
+            --radius-xl: 2.5rem;
+            --radius-full: 9999px;
+            --font-headline: 'Manrope', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #111410;
+                --surface: #111410;
+                --surface-container-lowest: #0c0f0a;
+                --surface-container-high: #21251e;
+                --on-surface: #e1e3e1;
+                --on-surface-variant: #c2c9b6;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--on-surface);
+            font-family: var(--font-body);
+            line-height: 1.4;
+            min-height: 100dvh;
+            padding-bottom: 6.5rem;
+            font-size: 0.9375rem;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .user-profile {
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            border: 2px solid var(--primary-container);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .user-profile:active {
+            transform: scale(0.95);
+        }
+
+        .user-profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-title {
+            font-family: var(--font-headline);
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            padding: 0.4rem;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        /* Main Content Layout */
+        .container {
+            max-width: 42rem;
+            margin: 0 auto;
+            padding: 0.5rem 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* Calorie Card */
+        .calorie-card {
+            background-color: var(--surface-container-lowest);
+            border-radius: var(--radius-default);
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 8px 24px rgba(25, 28, 27, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calorie-card-label {
+            color: var(--on-surface-variant);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+        }
+
+        .calorie-main {
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.35rem;
+        }
+
+        .calorie-current {
+            font-family: var(--font-headline);
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--on-surface);
+        }
+
+        .calorie-total {
+            color: var(--on-surface-variant);
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            margin-top: 1.25rem;
+            height: 0.75rem;
+            width: 100%;
+            background-color: var(--surface-container-high);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--primary-container));
+            border-radius: var(--radius-full);
+            transition: width 0.5s ease-out;
+        }
+
+        .macros-grid {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .macro-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .macro-item.border-x {
+            border-left: 1px solid rgba(114, 121, 105, 0.1);
+            border-right: 1px solid rgba(114, 121, 105, 0.1);
+            padding: 0 1.5rem;
+        }
+
+        .macro-label {
+            font-size: 0.7rem;
+            color: var(--on-surface-variant);
+            font-weight: 600;
+        }
+
+        .macro-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--on-surface);
+        }
+
+        .decorative-blur {
+            position: absolute;
+            top: -2rem;
+            right: -2rem;
+            width: 10rem;
+            height: 10rem;
+            background-color: rgba(57, 106, 5, 0.04);
+            border-radius: var(--radius-full);
+            filter: blur(40px);
+        }
+
+        /* Chips */
+        .chips-container {
+            display: flex;
+            gap: 0.4rem;
+            overflow-x: auto;
+            padding-bottom: 0.25rem;
+        }
+
+        .chips-container::-webkit-scrollbar { display: none; }
+        .chips-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .chip {
+            background-color: var(--primary-fixed);
+            color: var(--on-primary-fixed);
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8125rem;
+            font-weight: 700;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        /* Food List Waterfall */
+        .section-title {
+            font-family: var(--font-headline);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--on-surface);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .waterfall {
+            columns: 2;
+            column-gap: 0.75rem;
+        }
+
+        .waterfall-item {
+            break-inside: avoid;
+            margin-bottom: 0.75rem;
+            background-color: var(--surface-container-lowest);
+            border-radius: var(--radius-default);
+            overflow: hidden;
+            border: 1px solid rgba(194, 201, 182, 0.1);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .waterfall-image-container {
+            position: relative;
+        }
+
+        .aspect-4-5 { aspect-ratio: 4/5; }
+        .aspect-square { aspect-ratio: 1/1; }
+        .aspect-3-4 { aspect-ratio: 3/4; }
+
+        .waterfall-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+        }
+
+        .image-content {
+            position: absolute;
+            bottom: 0.75rem;
+            left: 0.75rem;
+            color: white;
+        }
+
+        .food-name { font-weight: 700; font-size: 1rem; line-height: 1.1; }
+        .food-cal { font-size: 0.75rem; font-weight: 500; opacity: 0.9; }
+
+        .card-p-5 { padding: 0.875rem; }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon .material-symbols-outlined { font-size: 20px; }
+
+        .bg-secondary-container { background-color: var(--secondary-container); color: var(--on-secondary); }
+        .bg-primary-fixed { background-color: var(--primary-fixed); color: var(--on-primary-fixed); }
+
+        .card-time { color: var(--on-surface-variant); font-weight: 700; font-size: 0.75rem; }
+        .card-name { font-weight: 700; font-size: 1rem; color: var(--on-surface); }
+        .card-cal { color: var(--primary); font-weight: 600; font-size: 0.8125rem; }
+
+        /* Bottom Input Bar */
+        .bottom-input-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: rgba(248, 250, 248, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.75rem 1.25rem calc(0.75rem + env(safe-area-inset-bottom, 0.75rem));
+            border-top: 1px solid rgba(194, 201, 182, 0.15);
+            box-shadow: 0 -8px 30px rgba(25, 28, 27, 0.06);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .bottom-input-nav { 
+                background-color: rgba(12, 15, 10, 0.85); 
+            }
+        }
+
+        .input-container {
+            background-color: var(--surface-container-high);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            padding: 0.3rem;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        .input-controls {
+            display: flex;
+            background-color: var(--surface-container-lowest);
+            border-radius: var(--radius-full);
+            padding: 0.15rem;
+            gap: 1px;
+        }
+
+        .mic-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-container));
+            color: white;
+            padding: 0.45rem;
+            border-radius: var(--radius-full);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .keyboard-btn {
+            background: none;
+            border: none;
+            color: var(--on-surface-variant);
+            padding: 0.45rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-input {
+            background: transparent;
+            border: none;
+            flex-grow: 1;
+            padding: 0 0.6rem;
+            color: var(--on-surface);
+            font-weight: 500;
+            outline: none;
+            font-size: 0.9375rem;
+        }
+
+        .main-input::placeholder {
+            color: rgba(66, 73, 58, 0.5);
+        }
+
+        .search-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(57, 106, 5, 0.25);
+        }
+
+        .search-btn span { font-size: 18px; }
+
+    </style>
+</head>
+<body>
+<header class="header">
+<div class="user-profile">
+<img alt="user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeClae_akq-Q_Zk3UCyFmWsFJcdA1EZzIMIzYSlTUWXu3zSQQrz0nkvGBijVuf_Y4h90CthgFsys_6YeMUVpT7n4T7q2BdyA5NFeOLbY-PS8m8t_erFVhmc0xuZEJYt9dEpiix5wTw87BrnUltBMFevl14GRbm5ydca-SMbSgvY5d9ErVjBOfPNGvLRQ4IJJIFjRRzCsfhx9KUyvyU3xGEaemCMsarSqiI5I-OmaS1WuoSFKfj8_KXCXOUyEE5l4F6bjdj6EUM1S_p"/>
+</div>
+<h1 class="brand-title">健康食志</h1>
+<button class="icon-btn">
+<span class="material-symbols-outlined">history</span>
+</button>
+</header>
+<main class="container">
+<!-- Compact Calorie Card -->
+<section class="calorie-card">
+<div style="position: relative; z-index: 10;">
+<p class="calorie-card-label">今日热量</p>
+<div class="calorie-main">
+<span class="calorie-current">1,420</span>
+<span class="calorie-total">/ 2,200 千卡</span>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width: 64.5%"></div>
+</div>
+<div class="macros-grid">
+<div class="macro-item">
+<span class="macro-label">蛋白质</span>
+<span class="macro-value">92g</span>
+</div>
+<div class="macro-item border-x">
+<span class="macro-label">碳水</span>
+<span class="macro-value">145g</span>
+</div>
+<div class="macro-item">
+<span class="macro-label">脂肪</span>
+<span class="macro-value">48g</span>
+</div>
+</div>
+</div>
+<div class="decorative-blur"></div>
+</section>
+<!-- Quick Chips Section -->
+<section class="chips-container">
+<button class="chip">+ 100 千卡</button>
+<button class="chip">+ 250 千卡</button>
+<button class="chip">+ 咖啡</button>
+<button class="chip">+ 苹果</button>
+</section>
+<!-- Food List Waterfall -->
+<section>
+<h2 class="section-title">今日饮食日志</h2>
+<div class="waterfall">
+<!-- Food Item Card 1 -->
+<div class="waterfall-item">
+<div class="waterfall-image-container aspect-4-5">
+<img alt="牛油果吐司" class="waterfall-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwOSY4rBqa_Kca71EhYLMAh-wcjVH6GxEcFpzyQMFMrobIp0PngYKnja18RIMFPRF_-oahoFOTFc2RIausJvwc6TNpWKKlIgZ7edtMcjKWIjwDIfLChXpzmLWMDqzrqGQGkP5N2da-w9fuRu86SP9XEr9TMxV25Cc2xU3gOc7aUnwPocPmpGLrYfUfmPGs9lmy3b5hP_bdG5FwttPpsCaufsUhw7XcvzX0YNN7lg12w5Bk9iA7vWNrA8KEqCIOvagr3wulgsPoFR4e"/>
+<div class="image-overlay"></div>
+<div class="image-content">
+<p class="food-name">牛油果吐司</p>
+<p class="food-cal">380 千卡</p>
+</div>
+</div>
+</div>
+<!-- Food Item Card 2 -->
+<div class="waterfall-item card-p-5">
+<div class="card-header">
+<div class="card-icon bg-secondary-container">
+<span class="material-symbols-outlined">coffee</span>
+</div>
+<span class="card-time">8:15 AM</span>
+</div>
+<p class="card-name">黑咖啡</p>
+<p class="card-cal">5 千卡</p>
+</div>
+<!-- Food Item Card 3 -->
+<div class="waterfall-item">
+<div class="waterfall-image-container aspect-square">
+<img alt="烤鸡肉沙拉" class="waterfall-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4Tm4Eb2kGAkcFb30t3Nw3LowAamOVnpZgGE-BlAMTMebwqTte9TYuijjlmVoQB9Q1KypeWMs3BBJswyfHRuWFOm1o7LouU21aSlBaTSRzfyeQXCW3xcAnuGwCMH7ozucjnY_bWsz3tb8C7aQv3RBTdZLQsC8LbFqOdcGIOq2B0cGCgBNXdKDty8nT3zq7jpOuH-9YKGW9TBvkkdrQtV7FA6-TeMqt9vksTqmNfqNkPvGOpzA6bSym5UTBe7mUL1QmAAzaKu8B-iVn"/>
+<div class="image-overlay"></div>
+<div class="image-content">
+<p class="food-name">烤鸡肉沙拉</p>
+<p class="food-cal">420 千卡</p>
+</div>
+</div>
+</div>
+<!-- Food Item Card 4 -->
+<div class="waterfall-item card-p-5">
+<div class="card-header">
+<div class="card-icon bg-primary-fixed">
+<span class="material-symbols-outlined">nutrition</span>
+</div>
+<span class="card-time">4:30 PM</span>
+</div>
+<p class="card-name">青苹果</p>
+<p class="card-cal">95 千卡</p>
+</div>
+<!-- Food Item Card 5 -->
+<div class="waterfall-item">
+<div class="waterfall-image-container aspect-3-4">
+<img alt="清蒸三文鱼" class="waterfall-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxh_pQVS9b528vGrKi6R1ciPMm29dPd_WJ06KUf8NFb66daOSc6gf8aII8-esSrxiP5_NmCCWLbifgogxj9LGisGisAoDdtHywWzRlWHZhLapZI-m_QUrVjsIXY4XKEr6XkEGCiHYbNhHtFezTKHAUcevT023jGWvxwqtBZz5T510kD_5GFWXnEiKythcefmEVMjPSk_gkXZvPb4s1s5OYSfdi6-MNpnl_GOwlictPPicSU_SfA_jrZ3RlHtM3l5eFqgIE2CXYAYvT"/>
+<div class="image-overlay"></div>
+<div class="image-content">
+<p class="food-name">清蒸三文鱼</p>
+<p class="food-cal">520 千卡</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<nav class="bottom-input-nav">
+<div class="input-container">
+<div class="input-controls">
+<button class="mic-btn">
+<span class="material-symbols-outlined fill-icon" style="font-size: 20px;">mic</span>
+</button>
+<button class="keyboard-btn">
+<span class="material-symbols-outlined" style="font-size: 20px;">keyboard</span>
+</button>
+</div>
+<input class="main-input" placeholder="今天吃了什么？" type="text"/>
+<button class="search-btn">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,25 @@
+{
+	"pages": [
+		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "健康食志",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/history/history",
+			"style": {
+				"navigationBarTitleText": "历史记录",
+				"navigationStyle": "custom"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "健康食志",
+		"navigationBarBackgroundColor": "#F8FAF8",
+		"backgroundColor": "#F8FAF8"
+	},
+	"uniIdRouter": {}
+}

@@ -1,0 +1,180 @@
+<!--home.wxml-->
+<view class="home-container">
+  <!-- 头部导航 -->
+  <view class="header">
+    <view class="avatar" bindtap="openSettings">
+      <image src="{{avatarUrl}}" mode="aspectFill" class="avatar-img" />
+    </view>
+    <text class="title">健康食志</text>
+    <view class="history-btn" bindtap="goToHistory">
+      <text class="iconfont">history</text>
+    </view>
+  </view>
+
+  <!-- 主内容区 -->
+  <view class="main-content">
+    <!-- 今日热量卡片 -->
+    <view class="calorie-card">
+      <view class="calorie-content">
+        <text class="calorie-label">今日热量</text>
+        <view class="calorie-value-row">
+          <text class="calorie-value">{{currentCalories}}</text>
+          <text class="calorie-total">/ {{totalCalories}} 千卡</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{progressPercent}}%" />
+        </view>
+        <view class="macros-row">
+          <view class="macro-item">
+            <text class="macro-label">蛋白质</text>
+            <text class="macro-value">{{protein}}g</text>
+          </view>
+          <view class="macro-item divider">
+            <text class="macro-label">碳水</text>
+            <text class="macro-value">{{carbs}}g</text>
+          </view>
+          <view class="macro-item">
+            <text class="macro-label">脂肪</text>
+            <text class="macro-value">{{fat}}g</text>
+          </view>
+        </view>
+      </view>
+      <view class="calorie-bg" />
+    </view>
+
+    <!-- 快捷添加按钮 -->
+    <scroll-view class="quick-add-scroll" scroll-x>
+      <view class="quick-add-row">
+        <view wx:for="{{quickAddOptions}}" wx:key="*this" class="quick-add-btn" bindtap="handleQuickAdd" data-option="{{item}}">
+          <text>{{item}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 今日饮食日志 -->
+    <view class="log-section">
+      <text class="log-title">今日饮食日志</text>
+      <view class="waterfall-container">
+        <view wx:for="{{foodItems}}" wx:key="id" class="food-item {{item.type === 'image' && item.image ? 'image-type' : 'simple-type'}}">
+          <!-- 图片类型 -->
+          <block wx:if="{{item.type === 'image' && item.image}}">
+            <view class="image-wrapper">
+              <image src="{{item.image}}" mode="aspectFill" class="food-image" style="aspect-ratio: {{item.mealType === 'breakfast' ? '4/5' : item.mealType === 'lunch' ? '1/1' : '3/4'}}" />
+              <view class="image-overlay" />
+              <view class="image-info">
+                <view class="image-text">
+                  <text class="food-name">{{item.name}}</text>
+                  <text class="food-calories">{{item.calories}} 千卡</text>
+                </view>
+                <text wx:if="{{item.grams > 0}}" class="food-grams">{{item.grams}}g</text>
+              </view>
+            </view>
+          </block>
+          <!-- 简单类型 -->
+          <block wx:else>
+            <view class="simple-header">
+              <view class="icon-circle {{item.mealType === 'breakfast' ? 'breakfast-icon' : 'other-icon'}}">
+                <text class="icon-text">{{item.mealType === 'breakfast' ? '☕' : '🥗'}}</text>
+              </view>
+              <text wx:if="{{item.time}}" class="food-time">{{item.time}}</text>
+            </view>
+            <view class="simple-info">
+              <view class="simple-text">
+                <text class="food-name">{{item.name}}</text>
+                <text class="food-calories">{{item.calories}} 千卡</text>
+              </view>
+              <text wx:if="{{item.grams > 0}}" class="food-grams">{{item.grams}}g</text>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部输入导航 -->
+  <view class="bottom-nav">
+    <view class="input-container">
+      <!-- 键盘模式 -->
+      <block wx:if="{{inputMode === 'keyboard'}}">
+        <input
+          class="input-field"
+          value="{{inputValue}}"
+          bindinput="onInputChange"
+          bindconfirm="handleSubmit"
+          placeholder="今天吃了什么？"
+          placeholder-class="input-placeholder"
+          confirm-type="send"
+        />
+        <view class="submit-btn" bindtap="handleSubmit">
+          <text class="submit-text">发送</text>
+        </view>
+      </block>
+      <!-- 语音模式 -->
+      <block wx:else>
+        <view
+          class="voice-btn {{isRecording ? 'recording' : ''}}"
+          bindtouchstart="onVoiceStart"
+          bindtouchend="onVoiceEnd"
+        >
+          <text class="iconfont voice-icon">{{isRecording ? 'mic' : 'mic'}}</text>
+          <text class="voice-text">{{isRecording ? '正在录音...' : '按住说话'}}</text>
+        </view>
+        <view class="keyboard-switch-btn" bindtap="switchToKeyboard">
+          <text class="iconfont keyboard-icon">keyboard</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 设置面板遮罩 -->
+  <view wx:if="{{settingsOpen}}" class="settings-mask" bindtap="closeSettings" />
+
+  <!-- 设置面板 -->
+  <view class="settings-panel {{settingsOpen ? 'open' : ''}}">
+    <view class="settings-header">
+      <text class="settings-title">设置</text>
+      <view class="settings-close" bindtap="closeSettings">
+        <text class="iconfont close-icon">close</text>
+      </view>
+    </view>
+    <view class="settings-content">
+      <view class="user-info">
+        <view class="user-avatar">
+          <image src="{{avatarUrl}}" mode="aspectFill" class="user-avatar-img" />
+        </view>
+        <view class="user-text">
+          <text class="user-name">用户名称</text>
+          <text class="user-desc">健康饮食达人</text>
+        </view>
+      </view>
+      <view class="body-info">
+        <view class="body-item">
+          <text class="body-label">身高</text>
+          <text class="body-value">175cm</text>
+        </view>
+        <view class="body-item divider">
+          <text class="body-label">体重</text>
+          <text class="body-value">70kg</text>
+        </view>
+        <view class="body-item">
+          <text class="body-label">年龄</text>
+          <text class="body-value">28岁</text>
+        </view>
+      </view>
+      <view class="settings-menu">
+        <view class="menu-item">
+          <text class="menu-text">每日热量目标</text>
+        </view>
+        <view class="menu-item">
+          <text class="menu-text">饮食偏好设置</text>
+        </view>
+        <view class="menu-item">
+          <text class="menu-text">通知设置</text>
+        </view>
+        <view class="menu-item">
+          <text class="menu-text">导出数据</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,511 @@
+/**history.scss**/
+.history-container {
+  min-height: 100vh;
+  background-color: var(--background);
+  padding-bottom: 64rpx;
+}
+
+/* 头部导航 */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 40rpx;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+}
+
+.back-btn {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-btn:active {
+  background-color: var(--surface-container-low);
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.025em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.calendar-btn {
+  padding: 12rpx;
+  border-radius: var(--radius-full);
+}
+
+.calendar-btn:active {
+  background-color: var(--surface-container-low);
+}
+
+.user-profile {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background-color: var(--surface-container);
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 主内容区 */
+.main-content {
+  max-width: 100%;
+  padding: 16rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+}
+
+/* 日历组件 */
+.calendar-container {
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--radius-default);
+  padding: 40rpx;
+  box-shadow: 0 8rpx 24rpx rgba(25, 28, 27, 0.04);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.month-title {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+
+.month-nav {
+  display: flex;
+  gap: 16rpx;
+}
+
+.nav-btn {
+  padding: 8rpx;
+  border-radius: 16rpx;
+}
+
+.nav-btn:active {
+  background-color: var(--surface-container-low);
+}
+
+.nav-icon {
+  font-size: 48rpx;
+  color: var(--on-surface-variant);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8rpx;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--outline);
+  padding: 16rpx 0;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--on-surface);
+  border-radius: 24rpx;
+  position: relative;
+}
+
+.calendar-day:active {
+  background-color: var(--surface-container-low);
+}
+
+.calendar-day.other-month {
+  color: var(--outline-variant);
+}
+
+.calendar-day.selected {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  font-weight: 700;
+}
+
+.calendar-day.has-record::after {
+  content: '';
+  position: absolute;
+  bottom: 12rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background-color: var(--primary-container);
+}
+
+.record-dot {
+  position: absolute;
+  bottom: 12rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background-color: var(--primary-container);
+}
+
+/* 搜索框 */
+.search-area {
+  background-color: var(--surface-container-high);
+  border-radius: var(--radius-default);
+  padding: 0 32rpx;
+  height: 112rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.search-icon {
+  color: var(--on-surface-variant);
+  font-size: 48rpx;
+}
+
+.search-input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 30rpx;
+  color: var(--on-surface);
+  font-weight: 500;
+}
+
+.search-placeholder {
+  color: rgba(66, 73, 58, 0.5);
+}
+
+/* 历史详情 */
+.timeline-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-title {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+
+.date-range {
+  color: var(--primary);
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+/* 日志卡片 */
+.log-card {
+  border-radius: var(--radius-default);
+  padding: 48rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.log-card.elevated {
+  background-color: var(--surface-container-lowest);
+  box-shadow: 0 24rpx 64rpx rgba(25, 28, 27, 0.04);
+}
+
+.log-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.day-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.day-label {
+  color: var(--on-surface-variant);
+  font-size: 24rpx;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.day-date {
+  font-size: 48rpx;
+  font-weight: 800;
+  margin-top: 8rpx;
+  color: var(--on-surface);
+}
+
+.calories-data {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.calories-value {
+  font-size: 60rpx;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+
+.primary-color {
+  color: var(--primary);
+}
+
+.calories-unit {
+  color: var(--on-surface-variant);
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.log-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid rgba(194, 201, 182, 0.1);
+}
+
+.tag-icons {
+  display: flex;
+  margin-left: 16rpx;
+}
+
+.tag-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: var(--radius-full);
+  border: 4rpx solid var(--surface-container-lowest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -16rpx;
+}
+
+.primary-tag {
+  background-color: var(--primary-fixed);
+}
+
+.secondary-tag {
+  background-color: var(--secondary-fixed);
+}
+
+.tertiary-tag {
+  background-color: var(--tertiary-fixed);
+}
+
+.tag-icon-text {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 28rpx;
+}
+
+.primary-tag .tag-icon-text {
+  color: var(--on-primary-fixed);
+}
+
+.secondary-tag .tag-icon-text {
+  color: var(--on-secondary-fixed);
+}
+
+.tertiary-tag .tag-icon-text {
+  color: var(--on-tertiary-fixed);
+}
+
+.tag-description {
+  color: var(--on-surface-variant);
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+/* 横向卡片 */
+.log-card-row {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--radius-default);
+  padding: 48rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 48rpx;
+  box-shadow: 0 24rpx 64rpx rgba(25, 28, 27, 0.04);
+}
+
+.log-card-row:active {
+  transform: scale(0.98);
+}
+
+.food-photo-thumb {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.food-img {
+  width: 100%;
+  height: 100%;
+}
+
+.log-card-content {
+  flex-grow: 1;
+}
+
+.meal-label {
+  color: var(--on-surface-variant);
+  font-size: 24rpx;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.meal-name {
+  font-size: 40rpx;
+  font-weight: 800;
+  margin-top: 8rpx;
+  color: var(--on-surface);
+}
+
+.cal-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 8rpx;
+}
+
+.cal-value {
+  font-size: 40rpx;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.cal-unit {
+  color: var(--on-surface-variant);
+  font-size: 24rpx;
+}
+
+.chevron-icon {
+  color: var(--outline-variant);
+  font-size: 48rpx;
+}
+
+/* 统计网格 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32rpx;
+}
+
+.stats-card {
+  border-radius: var(--radius-default);
+  padding: 48rpx;
+}
+
+.stats-card.full-width {
+  grid-column: span 2;
+  background-color: var(--primary-container);
+  color: #ffffff;
+}
+
+.stats-card.full-width .stats-label {
+  font-size: 24rpx;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+  margin-bottom: 16rpx;
+}
+
+.stats-card.full-width .stats-value-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 16rpx;
+}
+
+.stats-card.full-width .stats-value {
+  font-size: 72rpx;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.stats-card.full-width .stats-unit {
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+  color: #ffffff;
+}
+
+.stats-card.square {
+  background-color: var(--surface-container-low);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1 / 1;
+}
+
+.stats-icon {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 60rpx;
+}
+
+.secondary-icon {
+  color: var(--secondary);
+}
+
+.primary-icon {
+  color: var(--primary);
+}
+
+.stats-card.square .stats-label {
+  color: var(--on-surface-variant);
+  font-size: 24rpx;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stats-card.square .stats-value.small {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-top: 8rpx;
+}
