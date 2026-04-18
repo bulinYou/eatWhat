@@ -47,11 +47,8 @@ COPY --from=builder /app/apps/server/dist ./apps/server/dist
 COPY --from=builder /app/apps/server/drizzle.config.ts ./apps/server/drizzle.config.ts
 COPY --from=builder /app/apps/server/src/schema.ts ./apps/server/src/schema.ts
 
-# Install production dependencies only
-RUN cd apps/server && pnpm install --prod --frozen-lockfile
-
-# Install drizzle-kit for migrations
-RUN cd apps/server && pnpm add drizzle-kit
+# Install production dependencies only (including drizzle-kit)
+RUN cd apps/server && pnpm install --frozen-lockfile
 
 WORKDIR /app/apps/server
 
