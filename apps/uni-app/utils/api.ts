@@ -1,5 +1,5 @@
 // api.ts
-const API_BASE_URL = 'http://localhost:3000'
+const API_BASE_URL = 'http://47.254.82.248:3000'
 
 interface ApiResponse<T = any> {
   success: boolean

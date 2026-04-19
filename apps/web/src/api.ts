@@ -1,6 +1,6 @@
 import { DietRecord, UserGoals, ApiResponse, DailySummary } from '@diet-tracker/types'
 
-const API_BASE = '/api'
+const API_BASE = 'http://47.254.82.248:3000/api'
 
 async function request<T>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
   const response = await fetch(`${API_BASE}${url}`, {
